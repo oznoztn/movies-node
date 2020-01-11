@@ -1,12 +1,40 @@
 const Movie = require('../models/Movie');
 
-exports.movie_list = (req, res) => {
-  res.status(200).json({
-    message: 'Show all movies'
-  });
+exports.movie_list = async (req, res) => {
+  try {
+    const movies = await Movie.find();
+
+    res.status(200).json({
+      success: true,
+      data: movies
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false
+    });
+  }
 };
 
-exports.movie_get = (req, res) => {
+exports.movie_get = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+
+    if (!movie) {
+      return res.status(400).json({
+        success: false
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: movie
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false
+    });
+  }
+
   res.status(200).json({
     message: `Show movie ${req.params.id}`
   });
