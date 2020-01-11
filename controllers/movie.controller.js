@@ -1,3 +1,5 @@
+const Movie = require('../models/Movie');
+
 exports.movie_list = (req, res) => {
   res.status(200).json({
     message: 'Show all movies'
@@ -10,11 +12,18 @@ exports.movie_get = (req, res) => {
   });
 };
 
-exports.movie_create = (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: 'Create a new movie'
-  });
+exports.movie_create = async (req, res) => {
+  try {
+    const insertedMovie = await Movie.create(req.body);
+    res.status(201).json({
+      success: true,
+      data: insertedMovie
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false
+    });
+  }
 };
 
 exports.movie_update = (req, res) => {
