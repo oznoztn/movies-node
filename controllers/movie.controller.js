@@ -1,6 +1,6 @@
 const Movie = require('../models/Movie');
 
-exports.movie_list = async (req, res) => {
+exports.movie_list = async (req, res, next) => {
   try {
     const movies = await Movie.find();
 
@@ -15,7 +15,7 @@ exports.movie_list = async (req, res) => {
   }
 };
 
-exports.movie_get = async (req, res) => {
+exports.movie_get = async (req, res, next) => {
   try {
     const movie = await Movie.findById(req.params.id);
 
@@ -40,7 +40,7 @@ exports.movie_get = async (req, res) => {
   });
 };
 
-exports.movie_create = async (req, res) => {
+exports.movie_create = async (req, res, next) => {
   try {
     const insertedMovie = await Movie.create(req.body);
 
@@ -55,7 +55,7 @@ exports.movie_create = async (req, res) => {
   }
 };
 
-exports.movie_update = async (req, res) => {
+exports.movie_update = async (req, res, next) => {
   try {
     const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -79,7 +79,7 @@ exports.movie_update = async (req, res) => {
   }
 };
 
-exports.movie_delete = async (req, res) => {
+exports.movie_delete = async (req, res, next) => {
   try {
     const movie = await Movie.findByIdAndDelete(req.params.id);
 
