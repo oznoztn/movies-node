@@ -54,11 +54,27 @@ exports.movie_create = async (req, res) => {
   }
 };
 
-exports.movie_update = (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: `Update movie ${req.params.id}`
-  });
+exports.movie_update = async (req, res) => {
+  try {
+    const movie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true
+    });
+
+    if (!movie) {
+      return res.status(400).json({
+        success: false
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: movie
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false
+    });
+  }
 };
 
 exports.movie_delete = (req, res) => {
