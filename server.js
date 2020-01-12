@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./data/db');
 const bodyParser = require('body-parser');
+const errorHandler = require('./middleware/error-handler');
 
 // Load environment variables
 dotenv.config({ path: './config/config.env' });
@@ -27,6 +28,9 @@ if (process.env.NODE_ENV == 'development') {
 
 // Mount routers
 app.use('/api/v1/movies', movies);
+
+// Custom error handler middleware
+app.use(errorHandler);
 
 app.listen(
   PORT,
