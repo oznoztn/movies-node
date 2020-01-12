@@ -39,6 +39,7 @@ exports.movie_get = async (req, res) => {
 exports.movie_create = async (req, res) => {
   try {
     const insertedMovie = await Movie.create(req.body);
+
     res.status(201).json({
       success: true,
       data: insertedMovie
@@ -62,6 +63,7 @@ exports.movie_update = async (req, res) => {
         success: false
       });
     }
+
     res.status(200).json({
       success: true,
       data: movie
@@ -73,9 +75,23 @@ exports.movie_update = async (req, res) => {
   }
 };
 
-exports.movie_delete = (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: `Delete movie ${req.params.id}`
-  });
+exports.movie_delete = async (req, res) => {
+  try {
+    const movie = await Movie.findByIdAndDelete(req.params.id);
+
+    if (!movie) {
+      return res.status(400).json({
+        success: false
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      data: {}
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false
+    });
+  }
 };
