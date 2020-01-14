@@ -9,9 +9,7 @@ exports.movie_list = async (req, res, next) => {
       data: movies
     });
   } catch (error) {
-    res.status(400).json({
-      success: false
-    });
+    next(error);
   }
 };
 
@@ -30,9 +28,7 @@ exports.movie_get = async (req, res, next) => {
       data: movie
     });
   } catch (error) {
-    res.status(400).json({
-      success: false
-    });
+    next(error);
   }
 };
 
@@ -45,9 +41,7 @@ exports.movie_create = async (req, res, next) => {
       data: insertedMovie
     });
   } catch (error) {
-    res.status(400).json({
-      success: false
-    });
+    next(error);
   }
 };
 
@@ -69,9 +63,7 @@ exports.movie_update = async (req, res, next) => {
       data: movie
     });
   } catch (error) {
-    res.status(400).json({
-      success: false
-    });
+    next(error);
   }
 };
 
@@ -90,8 +82,6 @@ exports.movie_delete = async (req, res, next) => {
       data: {}
     });
   } catch (error) {
-    res.status(400).json({
-      success: false
-    });
+    next(error);
   }
 };
