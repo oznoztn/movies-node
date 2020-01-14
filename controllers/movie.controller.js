@@ -53,9 +53,7 @@ exports.movie_update = async (req, res, next) => {
     });
 
     if (!movie) {
-      return res.status(400).json({
-        success: false
-      });
+      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`, 404));
     }
 
     res.status(200).json({
