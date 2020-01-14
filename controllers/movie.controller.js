@@ -20,7 +20,7 @@ exports.movie_get = async (req, res, next) => {
     const movie = await Movie.findById(req.params.id);
 
     if (!movie) {
-      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`, 400));
+      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`, 404));
     }
 
     res.status(200).json({
@@ -72,9 +72,7 @@ exports.movie_delete = async (req, res, next) => {
     const movie = await Movie.findByIdAndDelete(req.params.id);
 
     if (!movie) {
-      return res.status(400).json({
-        success: false
-      });
+      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`, 404));
     }
 
     res.status(200).json({
