@@ -20,7 +20,7 @@ exports.movie_get = async (req, res, next) => {
     const movie = await Movie.findById(req.params.id);
 
     if (!movie) {
-      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`));
+      return next(new ErrorResponse(`Movie not found with given id of ${req.params.id}`, 400));
     }
 
     res.status(200).json({
@@ -28,7 +28,7 @@ exports.movie_get = async (req, res, next) => {
       data: movie
     });
   } catch (error) {
-    next(new ErrorResponse('Something went wrong!', 500));
+    next(error);
   }
 };
 
