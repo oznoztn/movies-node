@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
   // Why do I need to do this? Why spread operator doesn't 'spread' the message prop?
   error.message = err.message;
 
-  if (error.name === 'CastError') {
+  if (err.name === 'CastError') {
     const id = error.value;
     const message = `Movie not found with given id of ${id}`;
 
