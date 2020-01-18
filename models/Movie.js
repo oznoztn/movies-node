@@ -36,7 +36,8 @@ const MovieSchema = new mongoose.Schema({
   },
   votes: {
     type: Number
-  }
+  },
+  slug: String
 });
 
 module.exports = mongoose.model('Movie', MovieSchema);
