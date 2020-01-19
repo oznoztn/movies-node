@@ -44,7 +44,8 @@ const MovieSchema = new mongoose.Schema({
 // Create movie slug from the title
 //  (with Mongoose Middleware (also called pre and post hooks))
 MovieSchema.pre('save', function() {
-  this.slug = slugify(this.title, {
+  const title = this.title.replace("'", '');
+  this.slug = slugify(title, {
     lower: true
   });
 
