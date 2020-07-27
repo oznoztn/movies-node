@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const MovieSchema = new mongoose.Schema({
   const: {
@@ -36,7 +37,19 @@ const MovieSchema = new mongoose.Schema({
   },
   votes: {
     type: Number
-  }
+  },
+  slug: String
+});
+
+// Create movie slug from the title
+//  (with Mongoose Middleware (also called pre and post hooks))
+MovieSchema.pre('save', function() {
+  const title = this.title.replace("'", '');
+  this.slug = slugify(title, {
+    lower: true
+  });
+
+  next();
 });
 
 module.exports = mongoose.model('Movie', MovieSchema);
